@@ -69,15 +69,15 @@
     </div>
 
     <script type="text/javascript">
-        var juan = {};
+        var acme = {};
         $(document).ready(function () {
-            $("#submitBtn").on("click", juan.submitForm);
-            $("#user-list").on("click", "div#infoPanel", juan.recallInfo);
-            $("#deleteBtn").on("click", juan.deleteInfo);
+            $("#submitBtn").on("click", acme.submitForm);
+            $("#user-list").on("click", "div#infoPanel", acme.recallInfo);
+            $("#deleteBtn").on("click", acme.deleteInfo);
         });
 
 
-        juan.submitForm = function () {
+        acme.submitForm = function () {
             event.preventDefault();
             var parentID = $(this).closest("").attr("newid");
             console.log("submitForm function");
@@ -88,7 +88,7 @@
                 $newUser.find("#showEm").text($("#email").val());
                 $newUser.attr("newID", Math.ceil(Math.random() * 100000));
                 $("#user-list").append($newUser);
-                juan.clearForm();
+                acme.clearForm();
             }
             else {
                 console.log("make some shit");
@@ -96,11 +96,11 @@
                      
         }
 
-        juan.clearForm = function () {
+        acme.clearForm = function () {
             $("#inputForm")[0].reset();     // $("#inputForm :input").val("");  
         }
 
-        juan.recallInfo = function () {
+        acme.recallInfo = function () {
             console.log("recallInfo function");
             var $repop = $($(this).closest("#infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
             var repopObj = {};
@@ -112,21 +112,14 @@
             $("#email").val(repopObj.email);
             var parentID = $(this).closest(".user-list").attr("id");
 
-            // $($(this).closest(".user-list").html());  // this targets template element
 
-
-
-            // $($(this).closest(".user-list").html($("#firstName").val($("#showFN").text())));
-            // $($(this).closest(".user-list").html($("#lastName").val($("#showLN").text())));
-            // $($(this).closest(".user-list").html($("#email").val($("#showEm").text())));
-            // var parentID = $(this).closest(".user-list").attr("id");
 
         }
   
-        juan.updateInfo = function () {
+        acme.updateInfo = function () {
             event.preventDefault();
         }
-        juan.deleteInfo = function () {
+        acme.deleteInfo = function () {
             console.log("delete function.");
             $("#showFN").text("");
             $("#showLN").text("");
