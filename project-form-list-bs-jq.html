@@ -17,7 +17,9 @@
 </head>
 
 <body>
-
+<!-- reference: 
+C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessment_Exam\bensAssessmentCandidate\addresses_candidate_Ben.html
+-->
     <div class="container">
         <div class="navbar navbar-inverse">
             <!-- empty for now -->
@@ -117,7 +119,7 @@
             $("#firstName").val(repopObj.firstName);
             $("#lastName").val(repopObj.lastName);
             $("#email").val(repopObj.email);
-            var parentID = $(this).closest(".user-list").attr("id");
+            var parentID = $(this).closest("#infoPanel").attr("newid");
             // acme.updateInfo();
         }
 
