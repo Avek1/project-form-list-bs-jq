@@ -1,5 +1,6 @@
-﻿<! DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head xmlns="http://www.w3.org/1999/xhtml">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, intial-scale=1" />
@@ -14,6 +15,7 @@
         }*/
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -55,14 +57,15 @@
                                 <input type="email" class="form-control" id="email" />
                             </div>
                             <button type="submit" class="btn btn-default pull-right" id="submitBtn">Submit</button>
+                            <button type="button" class="btn btn-default pull-right hidden" id="updateBtn">Update</button>
                         </form>
                     </div>
-                   
+
                 </div>
-               
+
             </div>
             <div class="col-md-6" id="user-list">
-             
+
             </div>
         </div>
         <!-- end row -->
@@ -71,16 +74,18 @@
     <script type="text/javascript">
         var acme = {};
         $(document).ready(function () {
-            $("#submitBtn").on("click", acme.submitForm);
-            $("#user-list").on("click", "div#infoPanel", acme.recallInfo);
-            $("#deleteBtn").on("click", acme.deleteInfo);
+            $("#submitBtn").on("click", acme.submitInfo);
+            $("#user-list").on("click", "div#infoPanel", acme.editInfo);  // $("empty div for template").on("click", "template div", nameSpace.templateButton);
+            $("#updateBtn").on("click", acme.updateInfo);
+
+            //$("#deleteBtn").on("click", acme.deleteInfo);
         });
 
 
-        acme.submitForm = function () {
+        acme.submitInfo = function (event) {
             event.preventDefault();
             var parentID = $(this).closest("").attr("newid");
-            console.log("submitForm function");
+            console.log("submitInfo function");
             if (!parentID) {
                 var $newUser = $($("#user-info-template").html());
                 $newUser.find("#showFN").text($("#firstName").val());
@@ -93,16 +98,18 @@
             else {
                 console.log("make some shit");
             }
-                     
+
         }
 
         acme.clearForm = function () {
             $("#inputForm")[0].reset();     // $("#inputForm :input").val("");  
         }
 
-        acme.recallInfo = function () {
-            console.log("recallInfo function");
+        acme.editInfo = function () {
+            console.log("editInfo function");
             var $repop = $($(this).closest("#infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
+            $("#updateBtn").removeClass("hidden");
+            $("#submitBtn").addClass("hidden");
             var repopObj = {};
             repopObj.firstName = $repop.find("#showFN").text();
             repopObj.lastName = $repop.find("#showLN").text();
@@ -111,14 +118,28 @@
             $("#lastName").val(repopObj.lastName);
             $("#email").val(repopObj.email);
             var parentID = $(this).closest(".user-list").attr("id");
-
-
-
+            // acme.updateInfo();
         }
-  
+
         acme.updateInfo = function () {
-            event.preventDefault();
+            // event.preventDefault();
+            console.log("update info function");
+            // check dev to see if id # is present in form.
+            var parentID = $(this).closest(".user-list").attr("id");
+            var update = {};
+            update.firstName = $("#firstName").val();
+            update.lastName = $("#lastName").val();
+            update.email = $("#email").val();
+            var $update = $($("#" + parentID).html());
+            $update.find("#showFN").text(update.firstName);
+            $update.find("#showLN").text(update.lastName);
+            $update.find("#showEm").text(update.email);
+            //replace html
+            $("#" + parentID).html($update);
+            //clear form
+            //$("#inputForm")[0].reset();
         }
+
         acme.deleteInfo = function () {
             console.log("delete function.");
             $("#showFN").text("");
@@ -131,6 +152,7 @@
         <div class="panel panel-primary" id="infoPanel">
             <div class="panel-heading">User Info:</div>
             <div class="panel-body">
+                <!-- <p>Id: <span id="newID"></span></p> -->
                 <p>First Name: <span id="showFN"></span></p>
                 <p>Last Name: <span id="showLN"></span></p>
                 <p>Email: <span id="showEm"></span></p>
@@ -140,4 +162,5 @@
         </div>
     </script>
 </body>
+
 </html>
