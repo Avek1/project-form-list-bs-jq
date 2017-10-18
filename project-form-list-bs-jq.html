@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<!-- reference: 
+    <!-- reference: 
 C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessment_Exam\bensAssessmentCandidate\addresses_candidate_Ben.html
 -->
     <div class="container">
@@ -46,6 +46,12 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
                     <div class="panel-heading">Input Form</div>
                     <div class="panel-body">
                         <form id="inputForm">
+                            <div class="form-group">
+                                <p class="editId">
+                                    <b>ID: </b>
+                                    <span id="infoId"></span>
+                                </p>
+                            </div>
                             <div class="form-group">
                                 <label>First Name</label>
                                 <input class="form-control" id="firstName" />
@@ -77,10 +83,9 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
         var acme = {};
         $(document).ready(function () {
             $("#submitBtn").on("click", acme.submitInfo);
-            $("#user-list").on("click", "div#infoPanel", acme.editInfo);  // $("empty div for template").on("click", "template div", nameSpace.templateButton);
+            $("#user-list").on("click", "#editBtn", acme.editInfo);  // $("empty div for template").on("click", "event trigger", nameSpace.templateButton);
             $("#updateBtn").on("click", acme.updateInfo);
-
-            //$("#deleteBtn").on("click", acme.deleteInfo);
+            $("#user-list").on("click", "#deleteBtn", acme.deleteInfo);
         });
 
 
@@ -111,20 +116,29 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             console.log("editInfo function");
             var $repop = $($(this).closest("#infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
             $("#updateBtn").removeClass("hidden");
+            // $("#editId").removeClass("hidden");
             $("#submitBtn").addClass("hidden");
             var repopObj = {};
             repopObj.firstName = $repop.find("#showFN").text();
             repopObj.lastName = $repop.find("#showLN").text();
             repopObj.email = $repop.find("#showEm").text();
+            var parentID = $(this).closest("#infoPanel").attr("newid");
+            repopObj.id = parentID;
             $("#firstName").val(repopObj.firstName);
             $("#lastName").val(repopObj.lastName);
             $("#email").val(repopObj.email);
-            var parentID = $(this).closest("#infoPanel").attr("newid");
+            $("#infoId").text(repopObj.id);
+            // var parentID = $(this).closest("#infoPanel").attr("newid");
+            // acme.updateInfo();  // do i need this?
+            // return parentID;
             // acme.updateInfo();
+
+
         }
 
-        acme.updateInfo = function () {
+        acme.updateInfo = function (e) {
             // event.preventDefault();
+            // example on how to target by id and change an element value:  $('div[newid=16801]').find("#showFN").text("Bob");
             console.log("update info function");
             // check dev to see if id # is present in form.
             var parentID = $(this).closest(".user-list").attr("id");
@@ -144,9 +158,7 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
 
         acme.deleteInfo = function () {
             console.log("delete function.");
-            $("#showFN").text("");
-            $("#showLN").text("");
-            $("#showEm").text("");
+            $(this).closest("#infoPanel").remove();
         }
     </script>
 
