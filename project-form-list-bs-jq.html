@@ -32,8 +32,8 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
                 <p>Here you can:</p>
                 <ul>
                     <li>enter data to a form - works</li>
-                    <li>print your entry to "sheet" - works</li>
-                    <li>edit your entry - in progress</li>
+                    <li>print your entry - works</li>
+                    <li>edit your entry - works</li>
                     <li>delete your entry - works</li>
                 </ul>
             </div>
@@ -91,9 +91,11 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
 
         acme.submitInfo = function (event) {
             event.preventDefault();
-            var parentID = $(this).closest("").attr("id");
+            // var parentID = $(this).closest("").attr("id");
+            var parentID = $(this).closest("#infoId").text();
             console.log("submitInfo function");
-            if (!parentID) {
+            console.log(parentID);
+            if (parentID = "") {
                 var $newUser = $($("#user-info-template").html());
                 $newUser.find("#showFN").text($("#firstName").val());
                 $newUser.find("#showLN").text($("#lastName").val());
@@ -104,6 +106,7 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             }
             else {
                 console.log("make some shit");
+                alert("make some shit!");
             }
 
         }
@@ -116,7 +119,6 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             console.log("editInfo function");
             var $repop = $($(this).closest(".infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
             $("#updateBtn").removeClass("hidden");
-            // $("#editId").removeClass("hidden");
             $("#submitBtn").addClass("hidden");
             var repopObj = {};
             repopObj.firstName = $repop.find("#showFN").text();
@@ -132,11 +134,9 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
         }
         // works
         acme.updateInfo = function () {
-            // event.preventDefault();
             // example on how to target by id and change an element value:  $('div[newid=16801]').find("#showFN").text("Bob");
             // example 2 $("[newid=72633]").find("button").css("color", "orange");
             console.log("update info function");
-            // check dev to see if id # is present in form.
             var parentID = $("#infoId").text();
             var update = {};
             update.firstName = $("#firstName").val();
@@ -148,6 +148,9 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             $update.find("#showLN").text(update.lastName);
             $update.find("#showEm").text(update.email);
             $("#inputForm")[0].reset();
+            // reset update button to sumbit
+            $("#updateBtn").addClass("hidden");
+            $("#submitBtn").removeClass("hidden");
         }
 
         // works      
