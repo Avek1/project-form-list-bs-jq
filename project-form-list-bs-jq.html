@@ -13,22 +13,24 @@
             border-width: 1px;
             padding: 10px;
         }*/
+
+        /* body{
+            background-color: aqua
+        } */
     </style>
 </head>
 
 <body>
-    <!-- reference: 
-C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessment_Exam\bensAssessmentCandidate\addresses_candidate_Ben.html
--->
+
     <div class="container">
         <div class="navbar navbar-inverse">
             <!-- empty for now -->
         </div>
         <!-- begin row -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-md-offset-4">
                 <h2>Bootstrap Form & List</h2>
-                <p>Welcome to my basic web page.</p>
+                <p>Welcome to my basic web app.</p>
                 <p>Here you can:</p>
                 <ul>
                     <li>enter data to a form - works</li>
@@ -89,13 +91,40 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
         });
 
 
+        // acme.submitInfo = function (event) {
+        //     event.preventDefault();
+        //     // var parentID = $(this).closest("").attr("id");
+        //     // var parentID = $(this).closest("#infoId").text();
+        //     console.log("submitInfo function");
+        //     console.log(parentID);
+        //     if (!parentID) {  // this shit doesn't work...
+        //         var $newUser = $($("#user-info-template").html());
+        //         $newUser.find("#showFN").text($("#firstName").val());
+        //         $newUser.find("#showLN").text($("#lastName").val());
+        //         $newUser.find("#showEm").text($("#email").val());
+        //         $newUser.attr("id", Math.ceil(Math.random() * 100000));
+        //         $("#user-list").append($newUser);
+        //         acme.clearForm();
+        //     }
+        //     else {
+        //         console.log("please fill out the form");
+        //         alert("please fill out the form");
+        //     }
+
+        // }
+
+
         acme.submitInfo = function (event) {
             event.preventDefault();
             // var parentID = $(this).closest("").attr("id");
-            var parentID = $(this).closest("#infoId").text();
+            // var parentID = $(this).closest("#infoId").text();
             console.log("submitInfo function");
-            console.log(parentID);
-            if (parentID = "") {
+            if ($("#firstName").val() === "" &
+                $("#lastName").val() === "" &
+                $("#email").val() === "") {  
+                alert("please fill out the form");
+            }
+            else {
                 var $newUser = $($("#user-info-template").html());
                 $newUser.find("#showFN").text($("#firstName").val());
                 $newUser.find("#showLN").text($("#lastName").val());
@@ -103,10 +132,6 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
                 $newUser.attr("id", Math.ceil(Math.random() * 100000));
                 $("#user-list").append($newUser);
                 acme.clearForm();
-            }
-            else {
-                console.log("make some shit");
-                alert("make some shit!");
             }
 
         }
@@ -130,7 +155,6 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             $("#lastName").val(repopObj.lastName);
             $("#email").val(repopObj.email);
             $("#infoId").text(repopObj.id);
-
         }
         // works
         acme.updateInfo = function () {
@@ -147,7 +171,9 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             $update.find("#showFN").text(update.firstName);
             $update.find("#showLN").text(update.lastName);
             $update.find("#showEm").text(update.email);
-            $("#inputForm")[0].reset();
+            // $("#inputForm")[0].reset();
+            acme.clearForm();
+            $("#infoId").text("");
             // reset update button to sumbit
             $("#updateBtn").addClass("hidden");
             $("#submitBtn").removeClass("hidden");
@@ -164,7 +190,6 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
         <div class="panel panel-primary infoPanel">
             <div class="panel-heading">User Info:</div>
             <div class="panel-body">
-                <!-- <p>Id: <span id="newID"></span></p> -->
                 <p>First Name: <span id="showFN"></span></p>
                 <p>Last Name: <span id="showLN"></span></p>
                 <p>Email: <span id="showEm"></span></p>
