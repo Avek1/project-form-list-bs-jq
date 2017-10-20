@@ -31,10 +31,10 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
                 <p>Welcome to my basic web page.</p>
                 <p>Here you can:</p>
                 <ul>
-                    <li>input data to a form</li>
-                    <li>print your data to "sheet"</li>
-                    <li>edit your data</li>
-                    <li>delete your data</li>
+                    <li>enter data to a form - works</li>
+                    <li>print your entry to "sheet" - works</li>
+                    <li>edit your entry - in progress</li>
+                    <li>delete your entry - works</li>
                 </ul>
             </div>
         </div>
@@ -91,14 +91,14 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
 
         acme.submitInfo = function (event) {
             event.preventDefault();
-            var parentID = $(this).closest("").attr("newid");
+            var parentID = $(this).closest("").attr("id");
             console.log("submitInfo function");
             if (!parentID) {
                 var $newUser = $($("#user-info-template").html());
                 $newUser.find("#showFN").text($("#firstName").val());
                 $newUser.find("#showLN").text($("#lastName").val());
                 $newUser.find("#showEm").text($("#email").val());
-                $newUser.attr("newID", Math.ceil(Math.random() * 100000));
+                $newUser.attr("id", Math.ceil(Math.random() * 100000));
                 $("#user-list").append($newUser);
                 acme.clearForm();
             }
@@ -114,7 +114,7 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
 
         acme.editInfo = function () {
             console.log("editInfo function");
-            var $repop = $($(this).closest("#infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
+            var $repop = $($(this).closest(".infoPanel").html()); // this was not working because i was targeting user-list which is part of the html not the template.
             $("#updateBtn").removeClass("hidden");
             // $("#editId").removeClass("hidden");
             $("#submitBtn").addClass("hidden");
@@ -122,48 +122,43 @@ C:\Users\Juan\Documents\Visual Studio 2015\Projects\Sabio\01_PreWork_2\Assessmen
             repopObj.firstName = $repop.find("#showFN").text();
             repopObj.lastName = $repop.find("#showLN").text();
             repopObj.email = $repop.find("#showEm").text();
-            var parentID = $(this).closest("#infoPanel").attr("newid");
+            var parentID = $(this).closest(".infoPanel").attr("id");
             repopObj.id = parentID;
             $("#firstName").val(repopObj.firstName);
             $("#lastName").val(repopObj.lastName);
             $("#email").val(repopObj.email);
             $("#infoId").text(repopObj.id);
-            // var parentID = $(this).closest("#infoPanel").attr("newid");
-            // acme.updateInfo();  // do i need this?
-            // return parentID;
-            // acme.updateInfo();
-
 
         }
-
-        acme.updateInfo = function (e) {
+        // works
+        acme.updateInfo = function () {
             // event.preventDefault();
             // example on how to target by id and change an element value:  $('div[newid=16801]').find("#showFN").text("Bob");
+            // example 2 $("[newid=72633]").find("button").css("color", "orange");
             console.log("update info function");
             // check dev to see if id # is present in form.
-            var parentID = $(this).closest(".user-list").attr("id");
+            var parentID = $("#infoId").text();
             var update = {};
             update.firstName = $("#firstName").val();
             update.lastName = $("#lastName").val();
             update.email = $("#email").val();
-            var $update = $($("#" + parentID).html());
+            var $update = $("#" + parentID);
+            console.log($update);
             $update.find("#showFN").text(update.firstName);
             $update.find("#showLN").text(update.lastName);
             $update.find("#showEm").text(update.email);
-            //replace html
-            $("#" + parentID).html($update);
-            //clear form
-            //$("#inputForm")[0].reset();
+            $("#inputForm")[0].reset();
         }
 
+        // works      
         acme.deleteInfo = function () {
             console.log("delete function.");
-            $(this).closest("#infoPanel").remove();
+            $(this).closest(".infoPanel").remove();
         }
     </script>
 
     <script type="text/html" id="user-info-template">
-        <div class="panel panel-primary" id="infoPanel">
+        <div class="panel panel-primary infoPanel">
             <div class="panel-heading">User Info:</div>
             <div class="panel-body">
                 <!-- <p>Id: <span id="newID"></span></p> -->
