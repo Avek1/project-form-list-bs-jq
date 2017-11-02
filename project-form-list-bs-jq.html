@@ -14,32 +14,29 @@
             padding: 10px;
         }*/
 
-        /* body{
-            background-color: aqua
-        } */
+        body{
+            margin-top: 78px;
+        } 
+
+        #row-1 {
+            margin-top: 40px;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="navbar navbar-inverse">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <!-- empty for now -->
+            <h2 style="color:white; text-align:center">Bootstrap Form & List</h2>
         </div>
         <!-- begin row -->
-        <div class="row">
+        <!-- <div class="row" id="row-1">
             <div class="col-md-12 col-md-offset-4">
                 <h2>Bootstrap Form & List</h2>
-                <p>Welcome to my basic web app.</p>
-                <p>Here you can:</p>
-                <ul>
-                    <li>enter data to a form - works</li>
-                    <li>print your entry - works</li>
-                    <li>edit your entry - works</li>
-                    <li>delete your entry - works</li>
-                </ul>
             </div>
-        </div>
+        </div> -->
         <!-- end row -->
         <!-- begin row -->
         <div class="row">
@@ -90,38 +87,12 @@
             $("#user-list").on("click", "#deleteBtn", acme.deleteInfo);
         });
 
-
-        // acme.submitInfo = function (event) {
-        //     event.preventDefault();
-        //     // var parentID = $(this).closest("").attr("id");
-        //     // var parentID = $(this).closest("#infoId").text();
-        //     console.log("submitInfo function");
-        //     console.log(parentID);
-        //     if (!parentID) {  // this shit doesn't work...
-        //         var $newUser = $($("#user-info-template").html());
-        //         $newUser.find("#showFN").text($("#firstName").val());
-        //         $newUser.find("#showLN").text($("#lastName").val());
-        //         $newUser.find("#showEm").text($("#email").val());
-        //         $newUser.attr("id", Math.ceil(Math.random() * 100000));
-        //         $("#user-list").append($newUser);
-        //         acme.clearForm();
-        //     }
-        //     else {
-        //         console.log("please fill out the form");
-        //         alert("please fill out the form");
-        //     }
-
-        // }
-
-
         acme.submitInfo = function (event) {
             event.preventDefault();
-            // var parentID = $(this).closest("").attr("id");
-            // var parentID = $(this).closest("#infoId").text();
             console.log("submitInfo function");
             if ($("#firstName").val() === "" &
                 $("#lastName").val() === "" &
-                $("#email").val() === "") {  
+                $("#email").val() === "") {
                 alert("please fill out the form");
             }
             else {
@@ -133,7 +104,6 @@
                 $("#user-list").append($newUser);
                 acme.clearForm();
             }
-
         }
 
         acme.clearForm = function () {
@@ -171,7 +141,6 @@
             $update.find("#showFN").text(update.firstName);
             $update.find("#showLN").text(update.lastName);
             $update.find("#showEm").text(update.email);
-            // $("#inputForm")[0].reset();
             acme.clearForm();
             $("#infoId").text("");
             // reset update button to sumbit
